@@ -1,6 +1,9 @@
+import UnderConstructionBanner from "@/components/UnderConstructionBanner";
+
 export default function ContactPage() {
   return (
     <div className="max-w-2xl mx-auto px-4 py-10">
+      <UnderConstructionBanner />
       <h1 className="text-3xl font-bold mb-6">Get In Touch</h1>
       <p className="mb-4 text-gray-700">
         Have a question or an idea? Let’s talk about how we can work together.

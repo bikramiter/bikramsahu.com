@@ -1,6 +1,9 @@
+import UnderConstructionBanner from "@/components/UnderConstructionBanner";
+
 export default function ProductsPage() {
   return (
     <div className="max-w-4xl mx-auto px-4 py-10">
+      <UnderConstructionBanner />
       <h1 className="text-3xl font-bold mb-6">Products & Services</h1>
       <div className="space-y-8">
         <div>
