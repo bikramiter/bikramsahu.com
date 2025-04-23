@@ -1,8 +1,9 @@
-// src/types/types.d.ts
+import "grecaptcha";
+
 export {};
 
 declare global {
   interface Window {
-    grecaptcha: any;
+    grecaptcha: typeof grecaptcha;
   }
 }
