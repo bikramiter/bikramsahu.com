@@ -5,8 +5,8 @@ export default function BlogPage() {
         Blog: Finding Your First 100 Customers
       </h1>
       <p className="mb-6 text-gray-700">
-        Here you'll find actionable guides and insights on how small businesses
-        can find their first 100 customers using automation and AI.
+        Here you&apos;ll find actionable guides and insights on how small
+        businesses can find their first 100 customers using automation and AI.
       </p>
 
       <div className="space-y-6">

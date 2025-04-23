@@ -31,10 +31,10 @@ export default function Home() {
 
   return (
     <main className="max-w-3xl mx-auto py-10 px-4">
-      <h1 className="text-3xl font-bold mb-4">Hi, I'm Bikram 👋</h1>
+      <h1 className="text-3xl font-bold mb-4">Hi, I&apos;m Bikram 👋</h1>
       <p className="mb-6">
-        I help small businesses grow using automation and AI — tell me what’s
-        holding your business back.
+        I help small businesses grow using automation and AI — tell me
+        what&apos;s holding your business back.
       </p>
 
       <form
