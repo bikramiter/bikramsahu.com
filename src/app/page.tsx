@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import supabase from "@/lib/supabase";
 
 export default function Home() {
@@ -11,6 +11,19 @@ export default function Home() {
     bottleneck: "",
   });
   const [success, setSuccess] = useState(false);
+  const [errorMsg, setErrorMsg] = useState("");
+
+  useEffect(() => {
+    const loadRecaptcha = () => {
+      if (!window.grecaptcha) {
+        const script = document.createElement("script");
+        script.src = `https://www.google.com/recaptcha/api.js?render=${process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY}`;
+        script.async = true;
+        document.body.appendChild(script);
+      }
+    };
+    loadRecaptcha();
+  }, []);
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
@@ -20,12 +33,36 @@ export default function Home() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    const { error } = await supabase.from("leads").insert([form]);
+
+    if (!window.grecaptcha || !process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY) {
+      setErrorMsg("reCAPTCHA not loaded properly");
+      return;
+    }
+
+    const token = await window.grecaptcha.execute(
+      process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY!,
+      { action: "submit" }
+    );
+
+    if (!token) {
+      setErrorMsg("reCAPTCHA verification failed");
+      return;
+    }
+
+    const { error } = await supabase.from("leads").insert([
+      {
+        ...form,
+        captcha_token: token,
+      },
+    ]);
+
     if (error) {
       console.error("Error submitting lead:", error.message);
+      setErrorMsg("Submission failed. Please try again.");
     } else {
       setSuccess(true);
       setForm({ full_name: "", email: "", company_name: "", bottleneck: "" });
+      setErrorMsg("");
     }
   };
 
@@ -73,15 +110,18 @@ export default function Home() {
           className="w-full border p-2 rounded"
           required
         />
+
         <button
           type="submit"
           className="bg-black text-white px-4 py-2 rounded hover:bg-gray-800"
         >
           Submit
         </button>
+
         {success && (
           <p className="text-green-600 mt-2">Thanks! I’ll reach out soon.</p>
         )}
+        {errorMsg && <p className="text-red-600 mt-2">{errorMsg}</p>}
       </form>
     </main>
   );
