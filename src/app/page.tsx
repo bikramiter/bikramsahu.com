@@ -1,128 +1,81 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import supabase from "@/lib/supabase";
+import Image from "next/image";
+import Link from "next/link";
 
 export default function Home() {
-  const [form, setForm] = useState({
-    full_name: "",
-    email: "",
-    company_name: "",
-    bottleneck: "",
-  });
-  const [success, setSuccess] = useState(false);
-  const [errorMsg, setErrorMsg] = useState("");
-
-  useEffect(() => {
-    const loadRecaptcha = () => {
-      if (!window.grecaptcha) {
-        const script = document.createElement("script");
-        script.src = `https://www.google.com/recaptcha/api.js?render=${process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY}`;
-        script.async = true;
-        document.body.appendChild(script);
-      }
-    };
-    loadRecaptcha();
-  }, []);
-
-  const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => {
-    setForm({ ...form, [e.target.name]: e.target.value });
-  };
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-
-    if (!window.grecaptcha || !process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY) {
-      setErrorMsg("reCAPTCHA not loaded properly");
-      return;
-    }
-
-    const token = await window.grecaptcha.execute(
-      process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY!,
-      { action: "submit" }
-    );
-
-    if (!token) {
-      setErrorMsg("reCAPTCHA verification failed");
-      return;
-    }
-
-    const { error } = await supabase.from("leads").insert([
-      {
-        ...form,
-        captcha_token: token,
-      },
-    ]);
-
-    if (error) {
-      console.error("Error submitting lead:", error.message);
-      setErrorMsg("Submission failed. Please try again.");
-    } else {
-      setSuccess(true);
-      setForm({ full_name: "", email: "", company_name: "", bottleneck: "" });
-      setErrorMsg("");
-    }
-  };
-
   return (
-    <main className="max-w-3xl mx-auto py-10 px-4">
-      <h1 className="text-3xl font-bold mb-4">Hi, I&apos;m Bikram 👋</h1>
-      <p className="mb-6">
-        I help small businesses grow using automation and AI — tell me
-        what&apos;s holding your business back.
-      </p>
+    <main className="min-h-screen bg-white text-gray-900 flex flex-col items-center justify-center px-4">
+      {/* Hero Section */}
+      <section className="w-full max-w-4xl text-center py-20">
+        <h1 className="text-4xl md:text-5xl font-bold mb-4 leading-tight">
+          Helping Small Businesses Grow with{" "}
+          <span className="text-blue-600">Automation</span> &{" "}
+          <span className="text-green-600">AI</span>
+        </h1>
+        <p className="text-lg md:text-xl text-gray-600 mb-8">
+          Custom-built workflows, expert consultation, and growth-focused tools
+          — designed by someone who understands your needs.
+        </p>
+        <Link href="/contact">
+          <button className="bg-blue-600 text-white px-6 py-3 rounded-2xl shadow hover:bg-blue-700 transition">
+            Get a Free Strategy Call
+          </button>
+        </Link>
+      </section>
 
-      <form
-        onSubmit={handleSubmit}
-        className="bg-white p-6 rounded-xl shadow space-y-4"
-      >
-        <input
-          name="full_name"
-          value={form.full_name}
-          onChange={handleChange}
-          placeholder="Full Name"
-          className="w-full border p-2 rounded"
-          required
+      {/* Placeholder Image */}
+      <section className="mb-16">
+        <Image
+          src="/bikram-sahu.jpg"
+          alt="Bikram Sahu Portrait"
+          width={300}
+          height={300}
+          className="rounded-full shadow-xl object-cover"
         />
-        <input
-          name="email"
-          type="email"
-          value={form.email}
-          onChange={handleChange}
-          placeholder="Email"
-          className="w-full border p-2 rounded"
-          required
-        />
-        <input
-          name="company_name"
-          value={form.company_name}
-          onChange={handleChange}
-          placeholder="Company Name"
-          className="w-full border p-2 rounded"
-        />
-        <textarea
-          name="bottleneck"
-          value={form.bottleneck}
-          onChange={handleChange}
-          placeholder="What’s your biggest bottleneck?"
-          className="w-full border p-2 rounded"
-          required
-        />
+      </section>
 
-        <button
-          type="submit"
-          className="bg-black text-white px-4 py-2 rounded hover:bg-gray-800"
-        >
-          Submit
-        </button>
+      {/* Services Section */}
+      <section className="w-full max-w-5xl text-center grid grid-cols-1 md:grid-cols-3 gap-8 mb-24">
+        {[
+          {
+            title: "Automation Setup",
+            desc: "Streamline your operations using n8n, Zapier, and custom logic.",
+          },
+          {
+            title: "AI Agent Building",
+            desc: "Create intelligent tools to interact, recommend, or support your business.",
+          },
+          {
+            title: "Custom Web Tools",
+            desc: "From lead capture to internal dashboards — get what fits your flow.",
+          },
+        ].map((service, index) => (
+          <div
+            key={index}
+            className="bg-white border border-gray-200 rounded-2xl p-6 shadow-sm hover:shadow-md hover:scale-[1.02] transition-transform duration-200 text-left"
+          >
+            <h3 className="text-lg font-bold text-blue-700 mb-2 tracking-tight">
+              {service.title}
+            </h3>
+            <p className="text-sm text-gray-600 leading-relaxed">
+              {service.desc}
+            </p>
+          </div>
+        ))}
+      </section>
 
-        {success && (
-          <p className="text-green-600 mt-2">Thanks! I’ll reach out soon.</p>
-        )}
-        {errorMsg && <p className="text-red-600 mt-2">{errorMsg}</p>}
-      </form>
+      {/* CTA Section */}
+      <section className="text-center mb-20">
+        <h2 className="text-2xl font-semibold mb-4">
+          Ready to grow your business the smart way?
+        </h2>
+        <Link href="/contact">
+          <button className="bg-green-600 text-white px-6 py-3 rounded-2xl shadow hover:bg-green-700 transition">
+            Let’s Talk
+          </button>
+        </Link>
+      </section>
     </main>
   );
 }
