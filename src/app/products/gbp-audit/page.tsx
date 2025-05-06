@@ -10,14 +10,14 @@ export default function GBPAuditPage() {
         customers get when they search for your business. A fully optimized GBP
         can dramatically increase your local traffic, customer inquiries, and
         trust. <b>This will lead to more business 💵!!!</b> But many businesses
-        don’t realize they’re leaving money on the table by having an incomplete
-        or misconfigured profile.
+        don&apos;t realize they&apos;re leaving money on the table by having an
+        incomplete or misconfigured profile.
       </p>
 
       <p className="text-lg text-gray-700 mb-6">
-        If your GBP is incomplete, outdated, or unoptimized — you're leaving
-        money on the table. Customers are searching right now for the services
-        you offer. Make sure you show up and stand out.
+        If your GBP is incomplete, outdated, or unoptimized — you&apos;re
+        leaving money on the table. Customers are searching right now for the
+        services you offer. Make sure you show up and stand out.
       </p>
 
       <div className="bg-gray-50 border-l-4 border-blue-500 p-4 rounded-lg mb-8">
@@ -37,9 +37,9 @@ export default function GBPAuditPage() {
           ✨ Make your GBP work <em>for</em> your business
         </h3>
         <p className="text-gray-700">
-          For just $5.90 and in a few seconds, you'll get a clear, actionable
-          audit that can help you get more customers — without running ads or
-          doing complex SEO.
+          For just $5.90 and in a few seconds, you&apos;ll get a clear,
+          actionable audit that can help you get more customers — without
+          running ads or doing complex SEO.
         </p>
       </div>
 
