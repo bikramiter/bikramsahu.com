@@ -1,17 +1,79 @@
 @import "tailwindcss";
 
+/* Root CSS variables */
 :root {
   --background: #fafafa; /* A soft, light off-white */
   --foreground: #1a1a1a; /* Gentle dark for text */
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+
+  --font-sans: var(--font-geist-sans, system-ui, sans-serif);
+  --font-mono: var(--font-geist-mono, ui-monospace, monospace);
 }
 
+/* Body styles */
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: var(--font-sans), sans-serif;
+  font-family: var(--font-sans);
   margin: 0;
   padding: 0;
   line-height: 1.6;
+}
+
+/* Headings */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-weight: 700;
+  margin-top: 1.5em;
+  margin-bottom: 0.5em;
+  line-height: 1.25;
+}
+
+h1 {
+  font-size: 2em;
+}
+
+h2 {
+  font-size: 1.5em;
+}
+
+h3 {
+  font-size: 1.25em;
+}
+
+/* Paragraphs */
+p {
+  margin-top: 0;
+  margin-bottom: 1em;
+}
+
+.prose li {
+  list-style: none;
+  position: relative;
+  padding-left: 1.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.prose li::before {
+  content: "▶";
+  position: absolute;
+  left: 0;
+  top: 0.2em; /* aligns better with first line of text */
+  color: green;
+  font-size: 0.8rem;
+  line-height: 1;
+}
+
+.prose a {
+  color: #2563eb; /* Tailwind blue-600 */
+  text-decoration: underline;
+  font-weight: 500;
+  transition: color 0.2s ease;
+}
+
+.prose a:hover {
+  color: #1d4ed8; /* Tailwind blue-700 */
 }

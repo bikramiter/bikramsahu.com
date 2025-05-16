@@ -1,9 +1,11 @@
-import UnderConstructionBanner from "@/components/UnderConstructionBanner";
+import Link from "next/link";
+import { getAllPosts } from "@/lib/posts";
 
-export default function BlogPage() {
+export default async function BlogPage() {
+  const posts = await getAllPosts();
+
   return (
     <div className="max-w-3xl mx-auto px-4 py-10">
-      <UnderConstructionBanner />
       <h1 className="text-3xl font-bold mb-4">
         Blog: Finding Your First 100 Customers
       </h1>
@@ -12,25 +14,18 @@ export default function BlogPage() {
         businesses can find their first 100 customers using automation and AI.
       </p>
 
-      <div className="space-y-6">
-        <div className="border-b pb-4">
-          <h2 className="text-xl font-semibold">
-            🔍 Cold Outreach That Converts
-          </h2>
-          <p className="text-gray-600">
-            Learn how to design automated outreach campaigns that actually get
-            responses.
-          </p>
-        </div>
-        <div className="border-b pb-4">
-          <h2 className="text-xl font-semibold">
-            🤖 AI Agents for Lead Qualification
-          </h2>
-          <p className="text-gray-600">
-            How AI can help you identify the right prospects and nurture them
-            automatically.
-          </p>
-        </div>
+      <div className="space-y-8">
+        {posts.map((post) => (
+          <div key={post.slug} className="border-b pb-4">
+            <h2 className="text-xl font-semibold text-blue-600 hover:underline">
+              <Link href={`/blog/${post.slug}`}>{post.frontmatter.title}</Link>
+            </h2>
+            <p className="text-sm text-gray-500 mb-2">
+              {new Date(post.frontmatter.date).toLocaleDateString()}
+            </p>
+            <p className="text-gray-700">{post.frontmatter.description}</p>
+          </div>
+        ))}
       </div>
     </div>
   );
