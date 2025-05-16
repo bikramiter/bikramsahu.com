@@ -7,9 +7,9 @@ import gfm from "remark-gfm";
 import { notFound } from "next/navigation";
 
 type BlogPostProps = {
-  params: {
+  params: Promise<{
     slug: string;
-  };
+  }>;
 };
 
 export async function generateStaticParams() {
