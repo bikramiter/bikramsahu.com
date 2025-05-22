@@ -17,11 +17,15 @@ export default function Home() {
           Custom-built workflows, expert consultation, and growth-focused tools
           — designed by someone who understands your needs.
         </p>
-        <Link href="/contact">
+        <a
+          href="https://calendly.com/hi-bikramsahu"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
           <button className="bg-blue-600 text-white px-6 py-3 rounded-2xl shadow hover:bg-blue-700 transition">
-            Get a Free Strategy Call
+            Schedule a 15-Min Free Consultation
           </button>
-        </Link>
+        </a>
       </section>
 
       {/* Placeholder Image */}
