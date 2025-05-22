@@ -207,7 +207,7 @@ export default function GBPAuditPage() {
           address bar.
         </p>
         <img
-          src="/gbp-url-help.jpg"
+          src="/images/gbp-url-help.jpg"
           alt="Example showing where to get GBP URL"
           className="w-full mx-auto rounded shadow"
         />
